@@ -3518,8 +3518,22 @@ const DataEditorImpl: React.ForwardRefRenderFunction<DataEditorRef, DataEditorPr
                     (!showTrailingBlankRow || row !== rows) &&
                     (vr.y > row || row > vr.y + vr.height || vr.x > col || col > vr.x + vr.width)
                 ) {
-                    return;
+                    // Frozen columns/rows are always rendered regardless of scroll position, so
+                    // being outside the tracked scrollable region doesn't mean they're off-screen.
+                    let isInFreezeArea = false;
+                    if (vr.extras?.freezeRegions !== undefined) {
+                        for (const fr of vr.extras.freezeRegions) {
+                            if (pointInRect(fr, col, row)) {
+                                isInFreezeArea = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!isInFreezeArea) {
+                        return;
+                    }
                 }
+
                 const activationEvent: CellActivatedEventArgs = {
                     inputType: "keyboard",
                     key: event.key,
@@ -3983,7 +3997,7 @@ const DataEditorImpl: React.ForwardRefRenderFunction<DataEditorRef, DataEditorPr
                 group={group}
                 canvasBounds={canvasBounds}
                 onClose={() => setRenameGroup(undefined)}
-                onFinish={newVal => {
+                onFinish={(newVal: string) => {
                     setRenameGroup(undefined);
                     onGroupHeaderRenamed?.(group, newVal);
                 }}

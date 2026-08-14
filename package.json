@@ -20,6 +20,7 @@
         "test-projects": "cd test-projects/ && ./bootstrap-projects.sh"
     },
     "type": "commonjs",
+    "private": true,
     "author": "Glide",
     "license": "MIT",
     "workspaces": [

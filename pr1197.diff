@@ -1,0 +1,65 @@
+diff --git a/packages/core/src/data-editor/data-editor.tsx b/packages/core/src/data-editor/data-editor.tsx
+index 6674c6f7f..f8e6900b2 100644
+--- a/packages/core/src/data-editor/data-editor.tsx
++++ b/packages/core/src/data-editor/data-editor.tsx
+@@ -3518,7 +3518,20 @@ const DataEditorImpl: React.ForwardRefRenderFunction<DataEditorRef, DataEditorPr
+                     (!showTrailingBlankRow || row !== rows) &&
+                     (vr.y > row || row > vr.y + vr.height || vr.x > col || col > vr.x + vr.width)
+                 ) {
+-                    return;
++                    // Frozen columns/rows are always rendered regardless of scroll position, so
++                    // being outside the tracked scrollable region doesn't mean they're off-screen.
++                    let isInFreezeArea = false;
++                    if (vr.extras?.freezeRegions !== undefined) {
++                        for (const fr of vr.extras.freezeRegions) {
++                            if (pointInRect(fr, col, row)) {
++                                isInFreezeArea = true;
++                                break;
++                            }
++                        }
++                    }
++                    if (!isInFreezeArea) {
++                        return;
++                    }
+                 }
+                 const activationEvent: CellActivatedEventArgs = {
+                     inputType: "keyboard",
+diff --git a/packages/core/test/data-editor.test.tsx b/packages/core/test/data-editor.test.tsx
+index 4a0d97369..cbdae31fb 100644
+--- a/packages/core/test/data-editor.test.tsx
++++ b/packages/core/test/data-editor.test.tsx
+@@ -705,6 +705,34 @@ describe("data-editor", () => {
+         expect(spy).toHaveBeenCalledWith([1, 1], expect.anything());
+     });
+ 
++    test("Emits activated event when typing on a frozen column outside the tracked scroll region", async () => {
++        const spy = vi.fn();
++
++        vi.useFakeTimers();
++        render(<DataEditor {...basicProps} freezeColumns={2} onCellActivated={spy} />, {
++            wrapper: Context,
++        });
++        prep(false);
++
++        const canvas = screen.getByTestId("data-grid-canvas");
++        const [x, y] = getCellCenterPositionForDefaultGrid([1, 1]);
++        sendClick(canvas, {
++            clientX: x, // Col B, frozen (freezeColumns=2 covers cols 0 and 1)
++            clientY: y,
++        });
++
++        fireEvent.keyDown(canvas, {
++            key: "A",
++        });
++
++        act(() => {
++            vi.runAllTimers();
++        });
++
++        expect(spy).toHaveBeenCalled();
++        expect(spy).toHaveBeenCalledWith([1, 1], expect.anything());
++    });
++
+     test("keyDown and keyUp events include the cell location", async () => {
+         let keyDownEvent: GridKeyEventArgs | undefined;
+         let keyUpEvent: GridKeyEventArgs | undefined;

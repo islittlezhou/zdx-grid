@@ -75,15 +75,16 @@ export const CustomEditors: React.VFC = () => {
 
     return (
         <DataEditor
-            {...defaultProps}
+            // {...defaultProps}
             getCellContent={getCellContent}
             columns={cols}
             rows={20}
-            onCellEdited={(cell, newValue) => {
-                if (newValue.kind !== GridCellKind.Text) return;
-                setCellValue(cell, newValue);
-            }}
-            provideEditor={provideEditor as ProvideEditorCallback<any>}
+            freezeColumns={5}
+            // onCellEdited={(cell, newValue) => {
+            //     if (newValue.kind !== GridCellKind.Text) return;
+            //     setCellValue(cell, newValue);
+            // }}
+            // provideEditor={provideEditor as ProvideEditorCallback<any>}
         />
     );
 };
