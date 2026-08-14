@@ -1511,6 +1511,13 @@
   dependencies:
     "@wyw-in-js/processor-utils" "^0.6.0"
 
+"@linaria/core@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@linaria/core/-/core-8.1.1.tgz#30a8a90d61a7eb067dc893231c8bd351b9b3b442"
+  integrity sha512-ykVTiHrUm2aawUBvTheR041elB7RdyqFpckVtvWa1KbtC2TtYEVodYw1Xr1KcqkIUVQQGfK2J4hPBR4Cp8fIZQ==
+  dependencies:
+    "@wyw-in-js/processor-utils" "2.1.0"
+
 "@linaria/react@^6.3.0":
   version "6.3.0"
   resolved "https://registry.npmmirror.com/@linaria/react/-/react-6.3.0.tgz#aa11ed87079b3a759a180e4ba1f92cb3d64bfe57"
@@ -2601,6 +2608,13 @@
     "@babel/generator" "^7.23.5"
     "@wyw-in-js/shared" "0.7.0"
 
+"@wyw-in-js/processor-utils@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@wyw-in-js/processor-utils/-/processor-utils-2.1.0.tgz#421f6744adf6b117543de51e4490a1358eb9d2be"
+  integrity sha512-ksNUkSYIV1vTLwFv+H0R2YcmtERTYKHs+ZuNiBlyJca2t3q5+0OMiS3ZBPSftQEwYSXBW54m15+39qgSQEyTBQ==
+  dependencies:
+    "@wyw-in-js/shared" "2.1.0"
+
 "@wyw-in-js/shared@0.6.0", "@wyw-in-js/shared@^0.6.0":
   version "0.6.0"
   resolved "https://registry.npmmirror.com/@wyw-in-js/shared/-/shared-0.6.0.tgz#20dbaeb38b3f80cfe3ed6f9c7df2eaf0bcf5d9ec"
@@ -2614,6 +2628,15 @@
   version "0.7.0"
   resolved "https://registry.npmmirror.com/@wyw-in-js/shared/-/shared-0.7.0.tgz#777fa86714b0b9d73b99ea51372e7afb6b341d0e"
   integrity sha512-gDgtGMkYDZAdjOcXMIDF1ncqRAx0IvkGmCteoCNSQNa+qmoJDs20wXMbpRa3Zs/wo2Mr409IX0EWRI541wBrKA==
+  dependencies:
+    debug "^4.3.4"
+    find-up "^5.0.0"
+    minimatch "^9.0.3"
+
+"@wyw-in-js/shared@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@wyw-in-js/shared/-/shared-2.1.0.tgz#ed3df5209ea1966ff27fa82fd69c777bacd0f33b"
+  integrity sha512-mh7qtjVrhebafRZWgmat9Aidqbo6SiEtdv0eAMG5n3d8L01FMvz70OAYyXCt7r+2GCAtvfZXsyf1gS8NLZmaRQ==
   dependencies:
     debug "^4.3.4"
     find-up "^5.0.0"
