@@ -1,6 +1,6 @@
 {
     "name": "zdx-grid",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "React data grid for beautifully displaying and editing large amounts of data with amazing performance.",
     "sideEffects": [
         "**/*.css"
@@ -10,6 +10,13 @@
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/dts/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE",
+        "API.md",
+        "CHANGELOG.md"
+    ],
     "exports": {
         ".": {
             "types": "./dist/dts/index.d.ts",
@@ -33,11 +40,6 @@
         "check-package": "package-check",
         "watch": "chokidar 'src/**/*.ts*' -c './build.sh'"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/glideapps/glide-data-grid.git",
-        "directory": "packages/core"
-    },
     "keywords": [
         "react",
         "datagrid",
@@ -50,12 +52,8 @@
         "cell",
         "canvas"
     ],
-    "author": "Glide",
+    "author": "Zdx",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/glideapps/glide-data-grid/issues"
-    },
-    "homepage": "https://grid.glideapps.com",
     "dependencies": {
         "@linaria/react": "^6.3.0",
         "canvas-hypertxt": "^1.0.3",
