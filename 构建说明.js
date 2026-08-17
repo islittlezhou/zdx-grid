@@ -1,14 +1,19 @@
 
-// 构建说明
+// 构建说明【构建core包】
 // 1、cmd 环境下执行 [项目根目录下]
 // powershell -ExecutionPolicy Bypass -File .\build.ps1
 
 // 2、PowerShell 环境下执行 [项目根目录下]
 // .\build.ps1
 
+// 构建说明【构建cells包】
+// 1、直接进入到 cells 包目录 执行以下命令
+// npm run build
+
 
 // 3、发布到 npm 方式[在core目录下执行]
-// 首先 npm config set //registry.npmjs.org/:_authToken npm_O32xuONiyK43QqleE0crJ69 --no-workspaces   [中间参数是npm创建的秘钥]
+// [中间参数是npm创建的秘钥] 每次推送新包 都需要新建一个
+// 首先 npm config set //registry.npmjs.org/:_authToken npm_O32xuONiyK43QqleE0crJ69 --no-workspaces   
 // 然后 npm publish --no-workspaces
 
 

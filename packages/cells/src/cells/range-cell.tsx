@@ -5,7 +5,7 @@ import {
     getMiddleCenterBias,
     GridCellKind,
     getEmHeight,
-} from "@glideapps/glide-data-grid";
+} from "zdx-grid";
 import * as React from "react";
 import { roundedRect } from "../draw-fns.js";
 

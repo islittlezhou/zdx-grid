@@ -1,8 +1,12 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig, configDefaults } from "vitest/config";
+import { defineConfig, configDefaults, type UserConfig } from "vitest/config";
+
+// vitest bundles its own copy of vite; derive the plugin type from its UserConfig
+// so the root vite Plugin returned by @vitejs/plugin-react can be safely bridged.
+type PluginOption = NonNullable<UserConfig["plugins"]>[number];
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [react() as unknown as PluginOption],
     test: {
         include: ["test/**/*.test.tsx", "test/**/*.test.ts"],
         environment: "jsdom",
