@@ -1,4 +1,4 @@
-import { type DataEditorProps, type GridCell, GridCellKind, type GridColumn } from "@glideapps/glide-data-grid";
+import { type DataEditorProps, type GridCell, GridCellKind, type GridColumn } from "zdx-grid";
 import range from "lodash/range.js";
 import * as React from "react";
 
@@ -22,8 +22,9 @@ function cellToSortData(c: GridCell): string {
         case GridCellKind.Loading:
             return "";
         case GridCellKind.Custom:
-            return c.copyData;
+            return c.copyData ?? "";
     }
+    return "";
 }
 
 function tryParse(val: string | number): number | string {

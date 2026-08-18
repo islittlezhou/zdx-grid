@@ -12,7 +12,7 @@ import {
     isTextEditableGridCell,
     type Item,
     type Rectangle,
-} from "@glideapps/glide-data-grid";
+} from "zdx-grid";
 
 import { faker } from "@faker-js/faker";
 
@@ -99,9 +99,10 @@ export function lossyCopyData<T extends EditableGridCell>(source: EditableGridCe
             case GridCellKind.Custom: {
                 return target;
             }
-            // No default
+            default: {
+                return target;
+            }
         }
-    assertNever(target);
 }
 
 export type GridColumnWithMockingInfo = GridColumn & {

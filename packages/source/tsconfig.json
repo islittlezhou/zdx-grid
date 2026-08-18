@@ -1,8 +1,12 @@
 {
     "compilerOptions": {
-        "lib": ["dom", "ES6", "ES2017"]
+        "lib": ["dom", "ES6", "ES2017"],
+        "baseUrl": ".",
+        "composite": false,
+        "paths": {
+            "zdx-grid": ["../core/src/index.ts"]
+        }
     },
     "extends": "../../tsconfig.json",
-    "include": ["./src/**/*.ts", "./src/**/*.tsx", "test/use-data-source.test.tsx", "test/use-column-sort.test.tsx"],
-    "references": [{ "path": "../core" }]
+    "include": ["./src/**/*.ts", "./src/**/*.tsx", "test/use-data-source.test.tsx", "test/use-column-sort.test.tsx"]
 }

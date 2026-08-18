@@ -1,4 +1,4 @@
-import type { GridSelection, DataEditorProps, Theme } from "@glideapps/glide-data-grid";
+import type { GridSelection, DataEditorProps, Theme } from "zdx-grid";
 import React from "react";
 
 type Props = Pick<

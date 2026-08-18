@@ -8,7 +8,7 @@ import {
     GridCellKind,
     type GridColumn,
     type Theme,
-} from "@glideapps/glide-data-grid";
+} from "zdx-grid";
 import { faker } from "@faker-js/faker";
 import { useCollapsingGroups, useColumnSort, useMoveableColumns } from "../index.js";
 import { useUndoRedo } from "../use-undo-redo.js";
@@ -26,7 +26,7 @@ const SimpleWrapper = styled.div`
     }
 `;
 
-const SimpleThemeWrapper: React.FC = p => {
+const SimpleThemeWrapper: React.FC<{ children?: React.ReactNode }> = p => {
     return (
         <SimpleWrapper>
             <div className="content">{p.children}</div>
@@ -38,7 +38,7 @@ export default {
     title: "Extra Packages/Source",
 
     decorators: [
-        (Story: React.ComponentType) => (
+        (Story: React.ComponentType<{ children?: React.ReactNode }>) => (
             <SimpleThemeWrapper>
                 <Story />
             </SimpleThemeWrapper>
@@ -89,6 +89,7 @@ const BeautifulStyle = styled.div`
 interface BeautifulProps {
     title: string;
     description?: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 const BeautifulWrapper: React.FC<BeautifulProps> = p => {
@@ -153,6 +154,7 @@ const testTheme: Theme = {
     accentColor: "#4F5DFF",
     accentFg: "#FFFFFF",
     accentLight: "rgba(62, 116, 253, 0.1)",
+    checkboxMaxSize: 24,
 
     textDark: "#313139",
     textMedium: "#737383",
@@ -227,14 +229,15 @@ const cols: GridColumn[] = [
     },
 ];
 
-export const UseDataSource: React.VFC = () => {
+export const UseDataSource: React.FC = () => {
     const cache = React.useRef<Record<string, string>>({});
 
     const rows = 100_000;
 
     const moveArgs = useMoveableColumns({
         columns: cols,
-        getCellContent: React.useCallback(([col, row]) => {
+        onColumnMoved: () => undefined,
+        getCellContent: React.useCallback(([col, row]: readonly [number, number]) => {
             if (col === 0) {
                 return {
                     kind: GridCellKind.Text,
@@ -279,6 +282,10 @@ export const UseDataSource: React.VFC = () => {
         columns: moveArgs.columns,
         theme: testTheme,
         freezeColumns: 0,
+        onGroupHeaderClicked: undefined,
+        onGridSelectionChange: undefined,
+        getGroupDetails: undefined,
+        gridSelection: undefined,
     });
 
     const onHeaderClick = React.useCallback((index: number) => {
@@ -305,7 +312,7 @@ export const UseDataSource: React.VFC = () => {
     },
 };
 
-export const UndoRedo: React.VFC = () => {
+export const UndoRedo: React.FC = () => {
     const { cols: columns, getCellContent, setCellValue } = useMockDataGenerator(6);
 
     const gridRef = React.useRef<DataEditorRef>(null);
