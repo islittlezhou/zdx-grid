@@ -53,10 +53,10 @@ export const ShadowBox = styled.div`
     padding: 0;
     margin: 0;
 
-    padding-bottom: 2px;
+    padding-bottom: 0px;
 `;
 
 export const GrowingEntryStyle = styled.div`
     position: relative;
-    margin-top: 6px;
+    margin-top: 3px;
 `;
