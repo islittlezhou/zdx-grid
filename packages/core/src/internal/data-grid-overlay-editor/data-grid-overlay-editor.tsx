@@ -65,7 +65,7 @@ const DataGridOverlayEditor: React.FunctionComponent<DataGridOverlayEditorProps>
         theme,
         id,
         cell,
-        bloom,
+        // bloom,
         portalElementRef,
         validateCell,
         getCellRenderer,
@@ -228,8 +228,8 @@ const DataGridOverlayEditor: React.FunctionComponent<DataGridOverlayEditorProps>
         classWrap += " gdg-pad";
     }
 
-    const bloomX = bloom?.[0] ?? 1;
-    const bloomY = bloom?.[1] ?? 1;
+    // const bloomX = bloom?.[0] ?? 1;
+    // const bloomY = bloom?.[1] ?? 1;
 
     return createPortal(
         <ThemeContext.Provider value={theme}>
