@@ -38,13 +38,13 @@ export const DataGridOverlayEditorStyle = styled.div<Props>`
     }
 
     &.gdg-style {
-        border-radius: 2px;
+        border-radius: 0px;
         background-color: var(--gdg-bg-cell);
 
         box-shadow:
             0 0 0 1px var(--gdg-accent-color),
-            0px 0px 1px rgba(62, 65, 86, 0.4),
-            0px 6px 12px rgba(62, 65, 86, 0.15);
+            0px 0px 0px rgba(62, 65, 86, 0.4),
+            0px 0px 0px rgba(62, 65, 86, 0.15);
 
         animation: glide_fade_in 60ms 1;
     }

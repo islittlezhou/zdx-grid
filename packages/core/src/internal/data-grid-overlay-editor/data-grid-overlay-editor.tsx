@@ -245,10 +245,10 @@ const DataGridOverlayEditor: React.FunctionComponent<DataGridOverlayEditorProps>
                     className={classWrap}
                     style={styleOverride}
                     as={useLabel === true ? "label" : undefined}
-                    targetX={target.x - bloomX}
-                    targetY={target.y - bloomY}
-                    targetWidth={target.width + bloomX * 2}
-                    targetHeight={target.height + bloomY * 2}>
+                    targetX={target.x + 1}
+                    targetY={target.y + 1}
+                    targetWidth={target.width - 2}
+                    targetHeight={target.height - 2}>
                     <div className="gdg-clip-region" onKeyDown={onKeyDown}>
                         {editor}
                     </div>
