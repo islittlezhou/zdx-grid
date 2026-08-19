@@ -39,7 +39,7 @@ export const AllCellKinds: React.VFC = () => {
             columns={cols}
             onCellEdited={setCellValue}
             onPaste={true}
-            rowHeight={44}
+            rowHeight={34}
             onColumnResize={onColumnResize}
             highlightRegions={[
                 {

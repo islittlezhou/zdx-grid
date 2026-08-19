@@ -16,6 +16,8 @@ interface Props {
     readonly decimalSeparator?: string;
 }
 
+const ZERO_WIDTH_SPACE = "\u200b";
+
 function getDecimalSeparator() {
     const numberWithDecimalSeparator = 1.1;
     const result = Intl.NumberFormat()
@@ -43,20 +45,32 @@ const NumberOverlayEditor: React.FunctionComponent<Props> = p => {
     } = p;
 
     const inputRef = React.useRef<HTMLInputElement>();
+    const [displayValue, setDisplayValue] = React.useState<string>(ZERO_WIDTH_SPACE);
+
+    const syncDisplay = React.useCallback(() => {
+        const v = inputRef.current?.value;
+        setDisplayValue(v ? v : ZERO_WIDTH_SPACE);
+    }, []);
 
     React.useLayoutEffect(() => {
+        syncDisplay();
         if (validatedSelection !== undefined) {
             const range = typeof validatedSelection === "number" ? [validatedSelection, null] : validatedSelection;
             inputRef.current?.setSelectionRange(range[0], range[1]);
         }
-    }, [validatedSelection]);
+    }, [validatedSelection, syncDisplay]);
+
+    React.useEffect(() => {
+        requestAnimationFrame(syncDisplay);
+    }, [value, syncDisplay]);
 
     return (
         <NumberOverlayEditorStyle>
+            <span className="npc-shadow">{displayValue}</span>
             <NumericFormat
                 autoFocus={true}
                 getInputRef={inputRef}
-                className="gdg-input"
+                className="gdg-input npc-input"
                 onFocus={(e: React.FocusEvent<HTMLInputElement>) =>
                     e.target.setSelectionRange(highlight ? 0 : e.target.value.length, e.target.value.length)
                 }
@@ -66,9 +80,10 @@ const NumberOverlayEditor: React.FunctionComponent<Props> = p => {
                 thousandSeparator={thousandSeparator ?? getThousandSeprator()}
                 decimalSeparator={decimalSeparator ?? getDecimalSeparator()}
                 value={Object.is(value, -0) ? "-" : value ?? ""}
-                // decimalScale={3}
-                // prefix={"$"}
-                onValueChange={onChange}
+                onValueChange={(values) => {
+                    setDisplayValue(values.formattedValue || ZERO_WIDTH_SPACE);
+                    onChange(values);
+                }}
             />
         </NumberOverlayEditorStyle>
     );
