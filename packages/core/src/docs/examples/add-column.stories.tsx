@@ -16,7 +16,7 @@ export default {
         (Story: React.ComponentType) => (
             <SimpleThemeWrapper>
                 <BeautifulWrapper
-                    title="Add and remove columns"
+                    title="Add and remove columns 111"
                     description={
                         <>
                             <Description>You can add and remove columns at your disposal</Description>

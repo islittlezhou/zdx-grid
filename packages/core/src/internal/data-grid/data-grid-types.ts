@@ -89,6 +89,7 @@ export enum GridCellKind {
     Drilldown = "drilldown",
     Protected = "protected",
     Custom = "custom",
+    Select = "select",
 }
 
 /** @category Columns */
@@ -208,10 +209,10 @@ export type InnerGridColumn = SizedGridColumn & InnerColumnExtension;
 // export type SizedGridColumn = Omit<GridColumn, "width"> & { readonly width: number };
 
 /** @category Cells */
-export type ReadWriteGridCell = TextCell | NumberCell | MarkdownCell | UriCell | CustomCell | BooleanCell;
+export type ReadWriteGridCell = TextCell | NumberCell | MarkdownCell | UriCell | CustomCell | BooleanCell | SelectCell;
 
 /** @category Cells */
-export type EditableGridCell = TextCell | ImageCell | BooleanCell | MarkdownCell | UriCell | NumberCell | CustomCell;
+export type EditableGridCell = TextCell | ImageCell | BooleanCell | MarkdownCell | UriCell | NumberCell | CustomCell | SelectCell;
 
 /** @category Cells */
 export type EditableGridCellKind = EditableGridCell["kind"];
@@ -243,7 +244,8 @@ export function isTextEditableGridCell(cell: GridCell): cell is ReadWriteGridCel
         cell.kind === GridCellKind.Drilldown ||
         cell.kind === GridCellKind.Boolean ||
         cell.kind === GridCellKind.Image ||
-        cell.kind === GridCellKind.Custom
+        cell.kind === GridCellKind.Custom ||
+        cell.kind === GridCellKind.Select
     ) {
         return false;
     }
@@ -268,6 +270,7 @@ export function isReadWriteCell(cell: GridCell): cell is ReadWriteGridCell {
         case GridCellKind.Uri:
         case GridCellKind.Custom:
         case GridCellKind.Boolean:
+        case GridCellKind.Select:
             return cell.readonly !== true;
         default:
             assertNever(cell, "A cell was passed with an invalid kind");
@@ -491,6 +494,31 @@ export interface UriCell extends BaseGridCell {
     readonly readonly?: boolean;
     readonly onClickUri?: (args: BaseGridMouseEventArgs & { readonly preventDefault: () => void }) => void;
     readonly hoverEffect?: boolean;
+}
+
+/** @category Cells */
+export interface SelectOption {
+    readonly label: string;
+    readonly value: string;
+    readonly disabled?: boolean;
+}
+
+/** @category Cells */
+export interface SelectConfig {
+    readonly canClear?: boolean;
+    readonly isMultiple?: boolean;
+    readonly canEdit?: boolean;
+    readonly showIcon?: boolean;
+    readonly options: readonly SelectOption[];
+}
+
+/** @category Cells */
+export interface SelectCell extends BaseGridCell {
+    readonly kind: GridCellKind.Select;
+    readonly displayData: string;
+    readonly data: string;
+    readonly readonly?: boolean;
+    readonly selectConfig: SelectConfig;
 }
 
 /** @category Cells */

@@ -329,16 +329,15 @@ const TreeRender = {
     const i = len - 1;
     const showCheckboxFlag = cell.ref.showTreeCheckbox ?? false;
 
-    // 1. 先检测 checkbox 点击
+    // 1. 先检测 checkbox 点击（垂直方向扩展到整个单元格高度）
     if (showCheckboxFlag) {
       const checkboxX = vLineOffsetMap[i] + hLineWidth + checkboxGap;
-      const checkboxYLocal = (bounds.height - checkboxSize) / 2 + 1;
       
       const isCheckboxClicked =
         posX >= checkboxX &&
         posX <= checkboxX + checkboxSize &&
-        posY >= checkboxYLocal &&
-        posY <= checkboxYLocal + checkboxSize;
+        posY >= 0 &&
+        posY <= bounds.height;
 
       if (isCheckboxClicked) {
         console.log("✅ Checkbox 被点击！ 行：", row, " 列：", col);

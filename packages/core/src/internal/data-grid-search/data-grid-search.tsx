@@ -224,6 +224,9 @@ const DataGridSearch: React.FunctionComponent<DataGridSearchProps> = p => {
                             case GridCellKind.Custom:
                                 testString = cell.copyData;
                                 break;
+                            case GridCellKind.Select:
+                                testString = cell.displayData ?? cell.data;
+                                break;
                         }
 
                         if (testString !== undefined && regex.test(testString)) {

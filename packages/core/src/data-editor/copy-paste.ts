@@ -103,6 +103,12 @@ function convertCellToBuffer(cell: GridCell): CellBuffer {
                 rawValue: "",
                 format: "string",
             };
+        case GridCellKind.Select:
+            return {
+                formatted: cell.displayData ?? cell.data,
+                rawValue: cell.data,
+                format: "string",
+            };
         default:
             assertNever(cell);
     }

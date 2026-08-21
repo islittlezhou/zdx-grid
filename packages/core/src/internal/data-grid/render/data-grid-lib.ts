@@ -310,8 +310,13 @@ let metricsCache: Record<string, TextMetrics | undefined> = {};
 const isSSR = typeof window === "undefined";
 
 async function clearCacheOnLoad() {
-    if (isSSR || document?.fonts?.ready === undefined) return;
-    await document.fonts.ready;
+    if (isSSR) return;
+    if (typeof document === "undefined" || !document?.fonts) return;
+    try {
+        await document.fonts.ready;
+    } catch {
+        return;
+    }
     metricsSize = 0;
     metricsCache = {};
     clearCache();
